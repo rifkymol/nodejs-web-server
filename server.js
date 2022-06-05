@@ -4,24 +4,34 @@ const requestListener = (request, response) => {
     response.setHeader('Content-Type', 'text/html');
     response.statusCode = 200;
 
-    const { method } = request;
+    const { method, url } = request;
 
-    if (method === 'GET') {
-        response.end('<h1>Wooo you GET it! This is GET Method !</h1>');
-    }
-    if (method === 'POST') {
-        let body = [];
+    if (url === '/') {
+        if (method === 'GET') {
+            response.end(`<h1>Welcome to HOMEPAGE !</h1>`)
+        }else {
+            response.end(`<h1>This page cannot be accessed with ${method} request!</h1>`)
+        }
+    }else if (url === '/about') {
+        if (method === 'GET') {
+            response.end(`<h1>This is page about</h1>`)
+        }else if (method === 'POST') {
+            let body = [];
 
-        request.on('data', (chunk) => {
-            body.push(chunk);
-        });
+            request.on('data', (chunk) => {
+                body.push(chunk);
+            });
 
-        request.on('end', () => {
-            body = Buffer.concat(body).toString();
-            const { name } = JSON.parse(body);
-            response.end(`<h1>Woah! ${name} just use POST Method !</h1>`);
-        });
-
+            request.on('end', () => {
+                body = Buffer.concat(body).toString();
+                const {name} = JSON.parse(body);
+                response.end(`<h1>Halo, ${name} this is page about</h1>`);
+            });
+        }else {
+            response.end(`<h1>This page cannot be accessed with ${method} request</h1>`);
+        }
+    }else {
+        response.end(`<h1>This page cannot be access</h1>`);
     }
 };
 
