@@ -1,9 +1,8 @@
 # nodejs-web-server
 
-note:
-1. if your server crash after tryng on method/verb request probably bcs the end() function
-bcs once you use method GET its end() the program
-and if you try another method the server will crash
-SOLVED
-* this one because i didnt see i put response.end outside if XD
+This Repository is for my personal record building native nodejs web server
+Hopefully this will help me in the future!
+I expect myself to use every knowledge he have to make better community !
+I hope you are doing okay !
 
+Thanks!
