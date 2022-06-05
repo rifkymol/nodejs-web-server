@@ -9,15 +9,21 @@ const requestListener = (request, response) => {
     if (url === '/') {
         if (method === 'GET') {
             response.statusCode = 200;
-            response.end(`<h1>Welcome to HOMEPAGE !</h1>`)
+            response.end(JSON.stringify({
+                message: `Welcome to HOMEPAGE !`,
+            }));
         }else {
             response.statusCode = 400;
-            response.end(`<h1>This page cannot be accessed with ${method} request!</h1>`)
+            response.end(JSON.stringify({
+                message: `This page cannot be accessed with ${method} request`,
+            }));
         }
     }else if (url === '/about') {
         if (method === 'GET') {
             response.statusCode = 200;
-            response.end(`<h1>This is page about</h1>`)
+            response.end(JSON.stringify({
+                message: `This is page about`,
+            }));
         }else if (method === 'POST') {
             let body = [];
 
@@ -30,15 +36,21 @@ const requestListener = (request, response) => {
                 const {name} = JSON.parse(body);
                 
                 response.statusCode = 200;
-                response.end(`<h1>Halo, ${name} this is page about</h1>`);
+                response.end(JSON.stringify({
+                    message: `Halo, ${name} this is page about`,
+                }));
             });
         }else {
             response.statusCode = 400;
-            response.end(`<h1>This page cannot be accessed with ${method} request</h1>`);
+            response.end(JSON.stringify({
+                message: `This page cannot be accessed with ${method} request`,
+            }));
         }
     }else {
         response.statusCode = 400;
-        response.end(`<h1>This page cannot be access</h1>`);
+        response.end(JSON.stringify({
+            message: 'Page Not Found!',
+        }));
     }
 };
 
